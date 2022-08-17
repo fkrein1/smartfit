@@ -6,9 +6,7 @@ import par_fountain from '../assets/images/partial-fountain.png';
 import fob_fountain from '../assets/images/forbidden-fountain.png';
 import fob_locker from '../assets/images/forbidden-lockerroom.png';
 import req_locker from '../assets/images/required-lockerroom.png';
-import part_locker from '../assets/images/partial-lockerroom.png';
-
-
+import par_locker from '../assets/images/partial-lockerroom.png';
 
 export function Label() {
   return (
@@ -63,7 +61,7 @@ export function Label() {
             <span>Liberado</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={part_locker} className="h-20 w-20" />
+            <img src={par_locker} className="h-20 w-20" />
             <span>Parcial</span>
           </div>
           <div className="flex flex-col items-center">

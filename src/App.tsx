@@ -1,21 +1,63 @@
+import { useEffect, useState } from 'react';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Label } from './components/Label';
+import { Location } from './components/Location';
 
+interface APILocation {
+  id: number;
+  title: string;
+  content?: string;
+  street?: string;
+  region?: string;
+  city_name?: string;
+  uf?: string;
+  opened?: boolean;
+  mask?: string;
+  towel?: string;
+  fountain?: string;
+  locker_room?: string;
+  schedules?: [{ weekdays: string; hour: string }];
+}
 
 function App() {
+  const [locations, setLocations] = useState<APILocation[]>([]);
+
+  useEffect(() => {
+    const getLocations = async () => {
+      const stores = await fetch(
+        'https://test-frontend-developer.s3.amazonaws.com/data/locations.json',
+      );
+      const { locations } = await stores.json();
+      setLocations(locations);
+    };
+    getLocations();
+  }, []);
+
   return (
     <main>
       <Header />
-      <section className='pt-14 px-8'>
-        <h1 className='uppercase font-gotham_bold text-4xl'>Reabertura<br></br>Smart fit</h1>
-        <div className='w-28 border-8  border-black mt-6' />
-        <p className='mt-10'>O horário de funcionamento das nossas unidades está seguindo os decretos de cada município. Por isso, confira aqui se a sua unidade está aberta e as medidas de segurança que estamos seguindo.</p>
-      </section>
       <Label />
+      {locations.map((location) => (
+        <Location
+          key={`${location.id}_${location.title}`}
+          title={location.title}
+          content={location.content}
+          street={location.street}
+          region={location.region}
+          city_name={location.city_name}
+          uf={location.uf}
+          opened={location.opened}
+          mask={location.mask}
+          towel={location.towel}
+          fountain={location.fountain}
+          locker_room={location.locker_room}
+          schedules={location.schedules}
+        />
+      ))}
       <Footer />
-    </main> 
-  )
+    </main>
+  );
 }
 
 export default App;
