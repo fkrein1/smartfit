@@ -10,16 +10,16 @@ import par_locker from '../assets/images/partial-lockerroom.png';
 
 export function Label() {
   return (
-    <section className="flex flex-col bg-gray-100 py-8 my-16 gap-6 mx-8">
+    <section className="flex flex-col bg-gray-100 py-8 my-16 gap-6 mx-8 md:flex-row md:flex-wrap md:justify-center rounded shadow">
       <div className="flex flex-col items-center gap-4">
         <p className="font-gotham_bold text-lg">Máscara</p>
         <div className="flex align-middle items-center justify-center gap-6">
           <div className="flex flex-col items-center">
-            <img src={req_mask} className="h-20 w-20" />
+            <img src={req_mask} className="h-14 w-14" />
             <span>Obrigatório</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={rec_mask} className="h-20 w-20" />
+            <img src={rec_mask} className="h-14 w-14" />
             <span>Recomendado</span>
           </div>
         </div>
@@ -29,11 +29,11 @@ export function Label() {
         <p className="font-gotham_bold text-lg">Toalha</p>
         <div className="flex align-middle items-center justify-center gap-6">
           <div className="flex flex-col items-center">
-            <img src={req_toalha} className="h-20 w-20" />
+            <img src={req_toalha} className="h-14 w-14" />
             <span>Obrigatório</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={rec_toalha} className="h-20 w-20" />
+            <img src={rec_toalha} className="h-14 w-14" />
             <span>Recomendado</span>
           </div>
         </div>
@@ -43,11 +43,11 @@ export function Label() {
         <p className="font-gotham_bold text-lg">Bebedouro</p>
         <div className="flex align-middle items-center justify-center gap-6">
           <div className="flex flex-col items-center">
-            <img src={par_fountain} className="h-20 w-20" />
+            <img src={par_fountain} className="h-14 w-14" />
             <span>Parcial</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={fob_fountain} className="h-20 w-20" />
+            <img src={fob_fountain} className="h-14 w-14" />
             <span>Proibido</span>
           </div>
         </div>
@@ -57,15 +57,15 @@ export function Label() {
         <p className="font-gotham_bold text-lg">Vestiário</p>
         <div className="flex align-middle items-center justify-center gap-6">
           <div className="flex flex-col items-center">
-            <img src={req_locker} className="h-20 w-20" />
+            <img src={req_locker} className="h-14 w-14" />
             <span>Liberado</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={par_locker} className="h-20 w-20" />
+            <img src={par_locker} className="h-14 w-14" />
             <span>Parcial</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src={fob_locker} className="h-20 w-20" />
+            <img src={fob_locker} className="h-14 w-14" />
             <span>Fechado</span>
           </div>
         </div>

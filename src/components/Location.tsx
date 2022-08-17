@@ -51,7 +51,7 @@ export function Location(props: LocationProps) {
   const labels = getLabels(props);
 
   return (
-    <div className="flex flex-col bg-gray-100 p-4 my-16 gap-2 mx-8">
+    <div className="flex flex-col bg-gray-100 p-4 gap-2 my-8 md:my-0 md:w-64 md:grow md:max-w-xs rounded shadow">
       {props.opened && (
         <p className="font-gotham_bold text-green-500 text-sm ">Aberto</p>
       )}
@@ -80,7 +80,7 @@ export function Location(props: LocationProps) {
       )}
       <div className="flex mt-2">
         {labels.map((label) => (
-          <img key={label} className="h-16 w-16" src={label} />
+          <img key={label} className="h-14 w-14" src={label} />
         ))}
       </div>
       {props.schedules && (
