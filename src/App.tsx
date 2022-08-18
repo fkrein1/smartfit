@@ -1,53 +1,79 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Footer } from './components/Footer';
 import { Form } from './components/Form';
 import { Header } from './components/Header';
 import { Heading } from './components/Heading';
 import { Label } from './components/Label';
 import { Location } from './components/Location';
-import { FormContext } from './contexts/FormContext';
-
-interface APILocation {
-  id: number;
-  title: string;
-  content?: string;
-  street?: string;
-  region?: string;
-  city_name?: string;
-  uf?: string;
-  opened?: boolean;
-  mask?: string;
-  towel?: string;
-  fountain?: string;
-  locker_room?: string;
-  schedules?: [{ weekdays: string; hour: string }];
-}
+import { APILocation, FormContext } from './contexts/FormContext';
 
 function App() {
-  const [locations, setLocations] = useState<APILocation[]>([]);
-  const { dayPeriod, setFilteredLocations, hideClosed } =
+  const { dayPeriod, setFilteredLocations, hideClosed, search, locations } =
     useContext(FormContext);
 
-  useEffect(() => {
-    const getLocations = async () => {
-      const stores = await fetch(
-        'https://test-frontend-developer.s3.amazonaws.com/data/locations.json',
-      );
-      const { locations } = await stores.json();
-      setLocations(locations);
-    };
-    getLocations();
-  }, []);
-
-  const filterOpenLocations = () => {
+  const filterOpenLocations = (locations: APILocation[]) => {
     if (hideClosed) {
       const open = locations.filter((location) => location.opened);
-      setFilteredLocations(open.length);
       return open;
     }
-    setFilteredLocations(locations.length);
     return locations;
   };
+
+  const filterByTimeOfDay = (locations: APILocation[]) => {
+    if (dayPeriod === 'all') {
+      return locations;
+    }
+    if (dayPeriod === 'morning') {
+      return locations.filter((location) => {
+        if (location.schedules) {
+          if (!location.schedules[0].hour.includes(' às ')) return;
+          const time = location.schedules[0].hour.split(' às ');
+          const open = Number(time[0].substring(0, 2));
+          const close = Number(time[1].substring(0, 2));
+          if (open <= 6 && close >= 12) return true;
+        }
+      });
+    }
+    if (dayPeriod === 'afternoon') {
+      return locations.filter((location) => {
+        if (location.schedules) {
+          if (!location.schedules[0].hour.includes(' às ')) return;
+          const time = location.schedules[0].hour.split(' às ');
+          const open = Number(time[0].substring(0, 2));
+          const close = Number(time[1].substring(0, 2));
+          if (open <= 12 && close >= 18) return true;
+        }
+      });
+    }
+    if (dayPeriod === 'night') {
+      return locations.filter((location) => {
+        if (location.schedules) {
+          if (!location.schedules[0].hour.includes(' às ')) return;
+          const time = location.schedules[0].hour.split(' às ');
+          const open = Number(time[0].substring(0, 2));
+          const close = Number(time[1].substring(0, 2));
+          if (open <= 18 && close >= 22) return true;
+        }
+      });
+    }
+    return locations;
+  };
+
+  const filterBySearch = (locations: APILocation[]) => {
+    return locations.filter(
+      (location) =>
+        location.city_name?.toLowerCase().includes(search.toLowerCase()) ||
+        location.content?.toLowerCase().includes(search.toLowerCase()) ||
+        location.region?.toLowerCase().includes(search.toLowerCase()) ||
+        location.street?.toLowerCase().includes(search.toLowerCase()),
+    );
+  };
+
+  const filteredOpen = filterOpenLocations(locations);
+  const filteredByTime = filterByTimeOfDay(filteredOpen);
+  const filteredBySearch = filterBySearch(filteredByTime);
+
+  setFilteredLocations(filteredBySearch.length);
 
   return (
     <main>
@@ -56,8 +82,8 @@ function App() {
         <Heading />
         <Form />
         <Label />
-        <div className='md:flex md:flex-wrap md:gap-4 mx-8 md:mb-8'>
-          {filterOpenLocations().map((location) => (
+        <div className="md:flex md:flex-wrap md:gap-4 mx-8 md:mb-8">
+          {filteredBySearch.map((location) => (
             <Location
               key={`${location.id}_${location.title}`}
               title={location.title}

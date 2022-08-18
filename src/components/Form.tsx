@@ -9,15 +9,19 @@ export function Form() {
     filteredLocations,
     hideClosed,
     setHideClosed,
+    search,
+    setSearch,
   } = useContext(FormContext);
 
   const resetForm = () => {
     setDayPeriod('all');
     setHideClosed(true);
+    setSearch('')
   };
 
   return (
     <form className="flex flex-col p-6 my-16 gap-2 mx-8 border-2 rounded-md shadow">
+      
       <div className="flex gap-4 items-center mb-4">
         <img src={icon_hour} className="w-8 h-8" />
         <p className="text-gray-500 font-gotham_light">Horário</p>
@@ -68,10 +72,17 @@ export function Form() {
           />
           <p>Noite</p>
         </div>
-        <p>18:01 às 23:00</p>
+        <p>18:01 às 22:00</p>
       </label>
       <hr />
-      <div className='md:flex md:justify-between md:items-center'>
+      <input
+        className='border-2 rounded p-2 outline-yellow-500'
+        type="text"
+        placeholder="Digite aqui a rua, bairro ou cidade"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <div className="md:flex md:justify-between md:items-center">
         <label className="flex gap-4 items-center mt-4 cursor-pointer md:mt-0">
           <input
             type="checkbox"
