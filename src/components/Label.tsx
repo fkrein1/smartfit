@@ -1,12 +1,12 @@
-import rec_mask from '../assets/images/recommended-mask.png';
-import req_mask from '../assets/images/required-mask.png';
-import req_toalha from '../assets/images/required-towel.png';
-import rec_toalha from '../assets/images/recommended-towel.png';
-import par_fountain from '../assets/images/partial-fountain.png';
-import fob_fountain from '../assets/images/forbidden-fountain.png';
-import fob_locker from '../assets/images/forbidden-lockerroom.png';
-import req_locker from '../assets/images/required-lockerroom.png';
-import par_locker from '../assets/images/partial-lockerroom.png';
+import fob_fountain from '../assets/forbidden-fountain.png';
+import fob_locker from '../assets/forbidden-lockerroom.png';
+import par_fountain from '../assets/partial-fountain.png';
+import par_locker from '../assets/partial-lockerroom.png';
+import rec_mask from '../assets/recommended-mask.png';
+import rec_toalha from '../assets/recommended-towel.png';
+import req_locker from '../assets/required-lockerroom.png';
+import req_mask from '../assets/required-mask.png';
+import req_toalha from '../assets/required-towel.png';
 
 export function Label() {
   return (
@@ -70,8 +70,6 @@ export function Label() {
           </div>
         </div>
       </div>
-
-      
     </section>
   );
 }

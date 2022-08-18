@@ -8,7 +8,7 @@ import { Location } from './components/Location';
 import { APILocation, FormContext } from './contexts/FormContext';
 
 function App() {
-  const { dayPeriod, setFilteredLocations, hideClosed, search, locations } =
+  const { dayPeriod, hideClosed, search, locations } =
     useContext(FormContext);
 
   const filterOpenLocations = (locations: APILocation[]) => {
@@ -73,14 +73,14 @@ function App() {
   const filteredByTime = filterByTimeOfDay(filteredOpen);
   const filteredBySearch = filterBySearch(filteredByTime);
 
-  setFilteredLocations(filteredBySearch.length);
+  const totalLocations = filteredBySearch.length;
 
   return (
     <main>
       <Header />
       <div className="max-w-screen-lg m-auto">
         <Heading />
-        <Form />
+        <Form locations={totalLocations} />
         <Label />
         <div className="md:flex md:flex-wrap md:gap-4 mx-8 md:mb-8">
           {filteredBySearch.map((location) => (

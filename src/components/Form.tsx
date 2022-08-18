@@ -1,12 +1,15 @@
 import { useContext } from 'react';
-import icon_hour from '../assets/images/icon-hour.png';
+import icon_hour from '../assets/icon-hour.png';
 import { FormContext } from '../contexts/FormContext';
 
-export function Form() {
+interface FormProps {
+  locations: number;
+}
+
+export function Form(props: FormProps) {
   const {
     dayPeriod,
     setDayPeriod,
-    filteredLocations,
     hideClosed,
     setHideClosed,
     search,
@@ -16,12 +19,11 @@ export function Form() {
   const resetForm = () => {
     setDayPeriod('all');
     setHideClosed(true);
-    setSearch('')
+    setSearch('');
   };
 
   return (
     <form className="flex flex-col p-6 my-16 gap-2 mx-8 border-2 rounded-md shadow">
-      
       <div className="flex gap-4 items-center mb-4">
         <img src={icon_hour} className="w-8 h-8" />
         <p className="text-gray-500 font-gotham_light">Horário</p>
@@ -76,7 +78,7 @@ export function Form() {
       </label>
       <hr />
       <input
-        className='border-2 rounded p-2 outline-yellow-500'
+        className="border-2 rounded p-2 outline-yellow-500"
         type="text"
         placeholder="Digite aqui a rua, bairro ou cidade"
         value={search}
@@ -94,7 +96,7 @@ export function Form() {
         </label>
         <div className="flex gap-2 my-4 justify-center">
           <p className="font-gotham_light">Resultados encontrados:</p>
-          <span className="font-gotham_bold">{filteredLocations}</span>
+          <span className="font-gotham_bold">{props.locations}</span>
         </div>
       </div>
       <button

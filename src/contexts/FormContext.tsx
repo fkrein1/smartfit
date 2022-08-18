@@ -23,8 +23,6 @@ type FormContextProviderProps = {
 type FormContextType = {
   dayPeriod: string;
   setDayPeriod: (dayPeriod: string) => void;
-  filteredLocations: number;
-  setFilteredLocations: (filteredLocations: number) => void;
   hideClosed: boolean;
   setHideClosed: (hideClosed: boolean) => void;
   search: string;
@@ -37,7 +35,6 @@ export const FormContext = createContext({} as FormContextType);
 
 export function FormContextProvider(props: FormContextProviderProps) {
   const [dayPeriod, setDayPeriod] = useState<string>('all');
-  const [filteredLocations, setFilteredLocations] = useState<number>(0);
   const [hideClosed, setHideClosed] = useState<boolean>(true);
   const [search, setSearch] = useState<string>('');
   const [locations, setLocations] = useState<APILocation[]>([]);
@@ -58,8 +55,6 @@ export function FormContextProvider(props: FormContextProviderProps) {
       value={{
         dayPeriod,
         setDayPeriod,
-        filteredLocations,
-        setFilteredLocations,
         hideClosed,
         setHideClosed,
         search,
